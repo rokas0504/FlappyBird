@@ -6,7 +6,6 @@ public class Frame extends JFrame {
 
 
     public  Frame(){
-
         add(new Panel());
         setSize(800, 600);
         setVisible(true);

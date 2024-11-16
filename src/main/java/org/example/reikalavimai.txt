@@ -1,0 +1,12 @@
+
+
+1) Programa turi būti suprojektuota ir suprogramuota, vadovaujantis OO koncepcijomis: Inheritance, Encapsulation, Polymorphism, Abstraction. (būtina panaudoti visas išvardintas OO koncepcijas) (1 balas)
+  *Rezultate turėtų būti sugalvotas prasmingas objektinis modelis užduoties problemai spręsti
+  *Įsigilinkite ir supraskite kuo skiriasi paveldėjimas nuo polimorfizmo.
+2) Būtina laikytis švaraus kodo taisyklių, DRY principo (2 balai)
+  *Rezultate turi būti nedidelės klasės ir nedideli metodai. Orientacijai ne ilgesni negu 30 eilučių metodai ir iki 200 eilučių klasės
+  *Nėra panašaus pasikartojančio kodo (DRY principas)
+  *Naudojamos konstantos, išvengta "magic numbers"
+  *Neturi būti sudėtingų kodo struktūrų (complexity), pvz ciklas cikle ir dar viduje papildomos if, if else salygos
+3) Būtinai panaudoti vieną iš creational design pattern'ų ir vieną behavioural design pattern'ą (1 balas)
+4) Parašyti bent 3 prasmingus/naudingus unit test'us (1 balas)

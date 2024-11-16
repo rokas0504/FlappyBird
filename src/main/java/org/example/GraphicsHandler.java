@@ -25,11 +25,13 @@ public class GraphicsHandler {
     }
 
     public void drawWall(Graphics g, int x, int y, int w, int h, int gp) {
-        g.setColor(Color.RED);
-        g.fillRect(x, y, w, h);
 
-        g.setColor(Color.BLACK);
-        g.fillRect(x, gp, w, 150);
+        g.setColor(Color.RED);
+        g.fillRect(x, y, w, gp);
+
+        g.setColor(Color.RED);
+        g.fillRect(x, gp + 150, w, h);
+
     }
 
     public void drawBird(Graphics g, int x, int bp, int w, int h) {
@@ -94,5 +96,11 @@ public class GraphicsHandler {
 
     public Rectangle getBirdHitbox() {
         return birdHitbox;
+    }
+
+    public void drawScore(Graphics g, int score, int x, int y){
+    g.setColor(Color.YELLOW);
+    g.drawString("Score: " + score, x, y);
+
     }
 }

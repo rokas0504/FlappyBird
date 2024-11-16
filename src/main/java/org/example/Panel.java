@@ -9,13 +9,9 @@ import java.awt.event.ActionListener;
 
 public class Panel extends JPanel implements KeyListener, ActionListener {
     private GraphicsHandler graphicsHandler = new GraphicsHandler();
-    final int WIDTH = 800, HEIGHT = 600;
-    final int wallVELOCITY = 8;
-    final int wallWIDTH = 75;
-    int birdHeight = HEIGHT/2;
-    int birdVelocity = 0, birdAcceleration = 8, birdI = 1;
-    int [] wallX = {WIDTH, WIDTH + WIDTH / 2, };
-    int [] gapPlace ={(int)(Math.random() * (HEIGHT - 150)), (int)(Math.random() * (HEIGHT - 100))};
+    final int WIDTH = 800, HEIGHT = 600, wallVELOCITY = 8, wallWIDTH = 75;
+    int birdHeight = HEIGHT / 2, birdVelocity = 0, birdAcceleration = 8, birdI = 1;
+    int [] wallX = {WIDTH, WIDTH + WIDTH / 2, }, gapPlace ={(int)(Math.random() * (HEIGHT - 150)), (int)(Math.random() * (HEIGHT - 100))};
     boolean gameOver = false;
     Timer time =  new Timer(40, this);
     int score = 0;
@@ -27,8 +23,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         setSize(WIDTH,HEIGHT);
         setFocusable(true);
         addKeyListener(this);
-
-        setBackground(Color.BLACK);
+        setBackground(Color.black);
     }
 
     public void actionPerformed(ActionEvent e){
@@ -43,28 +38,22 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-
         if(!gameOver){
-
             for(int i = 0; i < 2; i++){
                 graphicsHandler.drawWall(g, wallX[i], 0, wallWIDTH, HEIGHT, gapPlace[i]);
             }
             logic();
             graphicsHandler.drawBird(g,250, birdPosition, 50, 60);
-            g.setColor(Color.YELLOW);
-            g.drawString("SCORE:" + score, WIDTH - 120, 10);
+            graphicsHandler.drawScore(g, score,WIDTH-120,10);
         } else {
-            g.setColor(Color.YELLOW);
-            g.drawString("SCORE:" + score, WIDTH - 400, HEIGHT - 300);
+            graphicsHandler.drawScore(g,score, WIDTH-400,HEIGHT - 300);
         }
 
     }
 
 
 
-    public void keyTyped(KeyEvent e) {
 
-    }
 
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -129,6 +118,10 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     }
 
     public void keyReleased(KeyEvent e) {
+
+    }
+
+    public void keyTyped(KeyEvent e) {
 
     }
 }
