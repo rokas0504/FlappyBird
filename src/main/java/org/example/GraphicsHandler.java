@@ -18,27 +18,25 @@ public class GraphicsHandler {
             birdFrame1 = ImageIO.read(getClass().getResource("/PNG/bird1.png"));
             birdFrame2 = ImageIO.read(getClass().getResource("/PNG/bird2.png"));
             birdFrame3 = ImageIO.read(getClass().getResource("/PNG/bird3.png"));
-            birdHitbox = new Rectangle(250, 250, 50, 60);
+            birdHitbox = new Rectangle(250, 250, Constants.HITBOX_WIDTH, Constants.HITBOX_HEIGHT);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void drawWall(Graphics g, int x, int y, int w, int h, int gp) {
+    public void drawWall(Graphics g, int x, int y, int w, int h, int gapPosition) {
 
         g.setColor(Color.RED);
-        g.fillRect(x, y, w, gp);
-
-        g.setColor(Color.RED);
-        g.fillRect(x, gp + 150, w, h);
+        g.fillRect(x, y, w, gapPosition);
+        g.fillRect(x, gapPosition + 150, w, h);
 
     }
 
-    public void drawBird(Graphics g, int x, int bp, int w, int h) {
-        birdHitbox.setLocation(x, bp);
+    public void drawBird(Graphics g, int x, int birdPosition, int width, int height) {
+        birdHitbox.setLocation(x, birdPosition);
         Image birdImage = null;
-        int birdWidth = w;
-        int birdHeight = h;
+        int birdWidth = width;
+        int birdHeight = height;
 
         if (isFlapping) {
             switch (frameIndex) {
@@ -63,44 +61,43 @@ public class GraphicsHandler {
                     birdHeight = 60;
                     break;
             }
-            g.drawImage(birdImage, x, bp, birdWidth, birdHeight, null);
+            g.drawImage(birdImage, x, birdPosition, birdWidth, birdHeight, null);
         } else {
-            g.drawImage(birdFrame1, x, bp, birdWidth, birdHeight, null);
+            g.drawImage(birdFrame1, x, birdPosition, birdWidth, birdHeight, null);
         }
     }
 
     public void triggerFlap() {
-        if (!isFlapping) {
-            isFlapping = true;
-            frameIndex = 0;
+        if (isFlapping) return;
 
-            if (flapTimer != null) {
-                flapTimer.cancel();
+        isFlapping = true;
+        frameIndex = 0;
+
+        if (flapTimer != null) {
+            flapTimer.cancel();
+        }
+
+        flapTimer = new Timer();
+        flapTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                updateFlapFrame();
             }
-
-            flapTimer = new Timer();
-            flapTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    frameIndex++;
-
-                    if (frameIndex > 4) {
-                        frameIndex = 0;
-                        isFlapping = false;
-                        flapTimer.cancel();
-                    }
-                }
-            }, 0, 100);
+        }, 0, Constants.FLAP_CYCLE_DURATION);
+    }
+    private void updateFlapFrame() {
+        frameIndex++;
+        if (frameIndex >= Constants.FLAP_FRAMES) {
+            isFlapping = false;
+            flapTimer.cancel();
         }
     }
-
     public Rectangle getBirdHitbox() {
         return birdHitbox;
     }
 
     public void drawScore(Graphics g, int score, int x, int y){
-    g.setColor(Color.YELLOW);
-    g.drawString("Score: " + score, x, y);
-
+        g.setColor(Color.YELLOW);
+        g.drawString("Score: " + score, x, y);
     }
 }
